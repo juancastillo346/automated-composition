@@ -1,3 +1,3 @@
 # automated-composition
 
-Automated Composition is a project for building and orchestrating AI-assisted workflows that automate content and software composition tasks from prompt to output.
+Interactive cellular automata composition project built around Conway's Game of Life, where evolving grid patterns drive generative music through Web Audio using cluster-based pitch and dynamics mapping.
