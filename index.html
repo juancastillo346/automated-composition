@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 5 - Cellular Automata Composition</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="split-panel lab-side">
+        <section class="panel lab-card">
+          <div class="controls">
+            <label class="control-field">
+              Rows
+              <input id="rows-input" type="number" min="4" max="32" value="12" />
+            </label>
+
+            <label class="control-field">
+              Columns
+              <input id="cols-input" type="number" min="4" max="32" value="12" />
+            </label>
+
+            <label class="control-field control-wide">
+              Speed
+              <input
+                id="speed-input"
+                type="range"
+                min="120"
+                max="800"
+                step="10"
+                value="620"
+              />
+            </label>
+
+            <button id="randomize-button" type="button">Randomize Grid</button>
+            <button id="clear-button" type="button">Clear Grid</button>
+            <button id="step-button" type="button">Step Once</button>
+            <button id="run-button" type="button">Start</button>
+          </div>
+
+          <div class="stats" aria-label="Simulation statistics">
+            <article class="stat-card">
+              <span class="stat-label">Generation</span>
+              <strong id="generation-value">0</strong>
+            </article>
+
+            <article class="stat-card">
+              <span class="stat-label">Live Cells</span>
+              <strong id="alive-value">0</strong>
+            </article>
+          </div>
+
+          <p id="status-text" class="status">
+            Ready. Randomize the grid, click cells to edit patterns, then step or start the automaton.
+          </p>
+
+          <section class="embedded-visualizer">
+            <canvas
+              id="automata-canvas"
+              width="480"
+              height="480"
+              aria-label="Cellular automata grid"
+            ></canvas>
+          </section>
+        </section>
+      </section>
+
+      <aside class="split-panel blog-side">
+        <section class="blog-panel">
+          <h1 class="blog-title">Cellular Automata Blog</h1>
+          <p class="blog-meta">Juan Castillo · April 21, 2026</p>
+
+          <article class="blog-content">
+            <h2>Design Goal</h2>
+            <p>
+              My first reaction to the completed lab was that I was very happy,
+              because it was really satisfying to click play and hear random
+              sounds come out of a system I had built myself. I wanted the
+              project to feel playful instead of purely technical, so I used a
+              randomized 12 by 12 grid that evolves with Conway’s Game of Life
+              rules and treated it like a small instrument rather than just a
+              coding exercise.
+            </p>
+
+            <h2>Finding the Mapping</h2>
+            <p>
+              The biggest trial-and-error process was figuring out how to map
+              the automaton to sound, because I tried rows, columns,
+              combinations, and cluster-based ideas before settling on
+              something that actually felt musical. That was also the moment the
+              lab opened up for me, because I realized I could be creative and
+              change the rules around what sounded best instead of assuming there
+              was one correct mapping.
+            </p>
+
+            <h2>Why the Largest Cluster</h2>
+            <p>
+              The largest-cluster version sounded the nicest to me because it
+              was peaceful and satisfying without becoming overwhelming. In
+              code, I run a connected-cluster search each generation, treat
+              diagonal cells as connected, and use the largest cluster as the
+              musical source: its vertical centroid maps to pitch in a minor
+              pentatonic scale, and its size affects how strong the note feels.
+              That made the sound respond to structure, not just to the number
+              of active cells.
+            </p>
+
+            <h2>Sound Design</h2>
+            <p>
+              Another big lesson was that sound design mattered just as much as
+              the mapping. Early versions sounded bad because there was almost
+              no attack or release shaping, so the notes felt abrupt and flat;
+              I fixed that mostly by listening and adjusting the envelope until
+              the sound started to breathe better. The final Web Audio voice is
+              a softer pad made from layered triangle oscillators, a sine sub,
+              and a low-pass filter sweep, which fit the arcade-inspired
+              Tetris look while still sounding calm.
+            </p>
+
+            <h2>What I Learned by Building It</h2>
+            <p>
+              The biggest thing I learned is that I can be my own composer even
+              if the instrument is just simple code. Before this, automated
+              composition felt more distant and technical to me, but building it
+              myself showed me that simple rules, small sound-design decisions,
+              and careful listening can already make something expressive. The
+              part I feel best about is that I genuinely enjoy the music and
+              feel proud of what I built.
+            </p>
+
+            <h2>What Still Feels Open</h2>
+            <p>
+              One thing that still feels imperfect is that the piece does not go
+              on forever, because eventually the automaton settles or dies out,
+              but I also think that is part of what makes it cooler. Each run
+              feels like a unique little performance, almost like jazz being
+              shaped in front of your eyes, and if I kept working on it I would
+              add more flowing animation tied to the cells since the visuals
+              already make me pay closer attention to pitch, tone, and shape.
+            </p>
+
+            <h2>Takeaway</h2>
+            <p>
+              What stayed with me most from this lab is that automated
+              composition is really an act of interpretation. The code handles
+              the automaton updates, cluster detection, pitch mapping, and Web
+              Audio scheduling, but the piece only starts to feel like music
+              when those technical parts are shaped by taste and listening. That
+              balance between system design and artistic choice is what made the
+              whole project feel personal to me.
+            </p>
+          </article>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
